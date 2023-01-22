@@ -2,7 +2,7 @@
 
 if [ $(find `pwd` -type f -size +100M ! -path '*/.git/*' | wc -l) -eq 0 ]; then
 	dt=$(date '+%d-%b-%Y %H:%M:%S');
-	echo "creating commit on \"$dt\""
+	echo "creating commit on \"$dt\" in tfjs-aap"
 	ms=""
 	if [ -n "$1" ]; then
 	   	ms=": $1"
