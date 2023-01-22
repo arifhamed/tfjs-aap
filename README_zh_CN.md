@@ -2,7 +2,7 @@
 
 本项目是基于[TensorFlow.js](https://js.tensorflow.org/)的纯览器端画风迁移算法实现。
 
-Demo地址：https://reiinakano.github.io/arbitrary-image-stylization-tfjs
+Demo地址：https://arifhamed.github.io/tfjs-aap
 
 ### 单风格迁移
 
@@ -18,7 +18,7 @@ Demo地址：https://reiinakano.github.io/arbitrary-image-stylization-tfjs
 
 这是一个基于TensorFlow.js完全运行在浏览器端的画风迁移算法实现。跟所有基于神经网络的画风迁移算法一样，神经网络试图去“画”一张画，画的内容源自一张图（通常是一张照片），画的风格源自另一张图（通常是一幅画）。
 
-虽然也有其他[浏览器端画风迁移实现](https://github.com/reiinakano/fast-style-transfer-deeplearnjs)，但它们往往受限于少量预置画风，因为每种画风都需要提前训练好一个与之对应的神经网络模型。
+虽然也有其他[浏览器端画风迁移实现](https://github.com/arifhamed/fast-style-transfer-deeplearnjs)，但它们往往受限于少量预置画风，因为每种画风都需要提前训练好一个与之对应的神经网络模型。
 
 本项目通过一个将*任意*画风表示为100维向量的*画风网络*来突破这个限制，该向量跟照片内容一起注入*迁移网络*，产生最终的画风图像。
 

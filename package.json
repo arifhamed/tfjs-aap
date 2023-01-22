@@ -1,5 +1,5 @@
 {
-  "name": "arbitrary-image-stylization-tfjs",
+  "name": "tfjs-aap",
   "version": "1.0.0",
   "author": "Reiichiro Nakano <reiichiro.s.nakano@gmail.com>",
   "dependencies": {
