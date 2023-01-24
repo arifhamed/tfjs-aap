@@ -14,4 +14,4 @@ function httpGet(theUrl)
     xmlhttp.open("GET", theUrl, false);
     xmlhttp.send();
 }
-httpGet("https://straitstimes.com/sitemap.xml")
+document.getElementById("news_headline_1").innerHTML = httpGet("https://straitstimes.com/sitemap.xml")
