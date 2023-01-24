@@ -1,6 +1,8 @@
+"use strict";
+
 console.log("mike test 1 2 3..");
 var superagent = require('superagent');
-async function httpGet(theUrl)
+function httpGet(theUrl)
 {
     // if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
     //     xmlhttp=new XMLHttpRequest();
@@ -10,10 +12,10 @@ async function httpGet(theUrl)
     xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function(){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            return xmlhttp.responseText;
+            document.getElementById("news_headline_1").innerHTML = xmlhttp.responseText;
         }
     }
     xmlhttp.open("GET", theUrl, false);
     xmlhttp.send();
 }
-document.getElementById("news_headline_1").innerHTML = await httpGet("https://straitstimes.com/sitemap.xml")
+// document.getElementById("news_headline_1").innerHTML = await httpGet("https://straitstimes.com/sitemap.xml")
