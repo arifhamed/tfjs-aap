@@ -1,3 +1,6 @@
+---
+permalink: /tfjs-aap/readme
+---
 # TFJS
 TensorFlow JS 
 
