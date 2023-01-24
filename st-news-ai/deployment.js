@@ -1,7 +1,6 @@
 "use strict";
 
 console.log("mike test 1 2 3..");
-var superagent = require('superagent');
 function httpGet(theUrl)
 {
     // if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
