@@ -13,4 +13,4 @@ else
 	echo "there are files larger than 100M, git cannot upload files that size and larger, fix it."
 fi
 
-notify-send "git operations are done"
+notify-send "git operations are done" "repo in `pwd`"
