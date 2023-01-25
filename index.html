@@ -14,7 +14,7 @@ layout: none
         {% include_relative _includes/header.html %}
         <!-- partial -->
         <div class="flash-news-banner">
-          <div class="container">
+          <a id="news-flash-anchor" class="container">
             <div class="d-lg-flex align-items-center justify-content-between">
               <div class="d-flex align-items-center">
                 <span class="badge badge-dark mr-3">Flash news</span>
@@ -28,7 +28,7 @@ layout: none
                 <span class="text-danger">30°C, Singapore</span>
               </div>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- note for ari: use javascript to display straitstimes articles -->
@@ -734,12 +734,15 @@ layout: none
             document.getElementById("news-"+(i+1)+"-headline").textContent = data[url_vals[i]]["headline"];
             document.getElementById("news-"+(i+1)+"-img").src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
             document.getElementById("news-"+(i+1)+"-datetime").textContent = data[url_vals[i]]["datetime"];
-            let anchor = document.getElementById("news-"+(i+1)+"-url");
-            anchor.setAttribute("href", data[url_vals[i]]["url"]);
-            anchor.setAttribute("style","text-decoration:none;color:unset;");
+            document.getElementById("news-"+(i+1)+"-url").setAttribute("href", data[url_vals[i]]["url"]);
+            document.getElementById("news-"+(i+1)+"-url").setAttribute("target","_blank");
+            document.getElementById("news-"+(i+1)+"-url").setAttribute("style","text-decoration:none;color:unset;");
           }
-          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"]
-          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"]
+          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"];
+          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"];
+          document.getElementById("news-flash-anchor").setAttribute("href",data[url_vals[total_iters]]["url"]);
+          document.getElementById("news-flash-anchor").setAttribute("target","_blank");
+          document.getElementById("news-flash-anchor").setAttribute("style","text-decoration:none;color:unset;");
         }
       }
     </script>
