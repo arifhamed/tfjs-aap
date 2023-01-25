@@ -397,8 +397,8 @@ permalink: /tfjs-aap/news
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news_column");
           const template = document.querySelector("#news_row");
-          for (let i = 0; i < 6 ; i++){
-            const clone = template.contains.cloneNode(true);
+          for (let i = 0; i < 6 ; i++){ 
+            const clone = template.firstChild.cloneNode(true);
             let h2 = clone.querySelectorAll(".row_headline")
             h2.textContent = data[getRandomInt(0,100)]["headline"];
             mainTable.appendChild(clone);
