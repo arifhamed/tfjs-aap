@@ -19,8 +19,8 @@ permalink: /tfjs-aap/news
 
         <!-- partial -->
         <div class="flash-news-banner">
-          <a id="news-flash-anchor" class="container">
-            <div class="d-lg-flex align-items-center justify-content-between">
+          <div class="container">
+            <a id="news-flash-anchor" target="_blank" style="text-decoration:none;color:unset;" class="d-lg-flex align-items-center justify-content-between">
               <div class="d-flex align-items-center">
                 <span class="badge badge-dark mr-3">Flash news</span>
                 <p class="mb-0" id="news-flash-headline">
@@ -32,8 +32,8 @@ permalink: /tfjs-aap/news
                 <span class="mr-3 text-danger" id="news-flash-datetime">Wed, March 4, 2020</span>
                 <span class="text-danger">30°C, Singapore</span>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
         <div class="content-wrapper">
           <div class="container">
@@ -256,8 +256,6 @@ permalink: /tfjs-aap/news
           document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"]
           document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"]
           document.getElementById("news-flash-anchor").setAttribute("href",data[url_vals[total_iters]]["url"]);
-          document.getElementById("news-flash-anchor").setAttribute("target","_blank");
-          document.getElementById("news-flash-anchor").setAttribute("style","text-decoration:none;color:unset;");
         }
       }
     </script>

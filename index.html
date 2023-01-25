@@ -14,8 +14,8 @@ layout: none
         {% include_relative _includes/header.html %}
         <!-- partial -->
         <div class="flash-news-banner">
-          <a id="news-flash-anchor" class="container">
-            <div class="d-lg-flex align-items-center justify-content-between">
+          <div class="container">
+            <a id="news-flash-anchor" target="_blank" style="text-decoration:none;color:unset;" class="d-lg-flex align-items-center justify-content-between">
               <div class="d-flex align-items-center">
                 <span class="badge badge-dark mr-3">Flash news</span>
                 <p class="mb-0" id="news-flash-headline">
@@ -27,8 +27,8 @@ layout: none
                 <span class="mr-3 text-danger" id="news-flash-datetime">Wed, March 4, 2020</span>
                 <span class="text-danger">30°C, Singapore</span>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
 
         <!-- note for ari: use javascript to display straitstimes articles -->
@@ -64,7 +64,7 @@ layout: none
                   <div class="card-body">
                     <h2>Latest news</h2>
 
-                    <a id="news-1-url" class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
+                    <a id="news-1-url" target="_blank" style="text-decoration:none;color:unset;" class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
                       <div class="pr-3">
                         <h5 id="news-1-headline">Default news headline here (like the other 2)</h5>
                         <div class="fs-12">
@@ -76,7 +76,7 @@ layout: none
                       </div>
                     </a>
 
-                    <a id="news-2-url" class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between">
+                    <a id="news-2-url" target="_blank" style="text-decoration:none;color:unset;" class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between">
                       <div class="pr-3">
                         <h5 id="news-2-headline">Virus Kills Member Of Advising Iran's Supreme</h5>
                         <div class="fs-12">
@@ -89,7 +89,7 @@ layout: none
                     </a>
 
                     <!-- that border-bottom-blue should not be a class on this last post -->
-                    <a id="news-3-url" class="d-flex pt-4 align-items-center justify-content-between">
+                    <a id="news-3-url" target="_blank" style="text-decoration:none;color:unset;" class="d-flex pt-4 align-items-center justify-content-between">
                       <div class="pr-3">
                         <h5 id="news-3-headline">Joe Biden smells like cheese & omeletes</h5>
                         <div class="fs-12">
@@ -735,14 +735,10 @@ layout: none
             document.getElementById("news-"+(i+1)+"-img").src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
             document.getElementById("news-"+(i+1)+"-datetime").textContent = data[url_vals[i]]["datetime"];
             document.getElementById("news-"+(i+1)+"-url").setAttribute("href", data[url_vals[i]]["url"]);
-            document.getElementById("news-"+(i+1)+"-url").setAttribute("target","_blank");
-            document.getElementById("news-"+(i+1)+"-url").setAttribute("style","text-decoration:none;color:unset;");
           }
           document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"];
           document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"];
           document.getElementById("news-flash-anchor").setAttribute("href",data[url_vals[total_iters]]["url"]);
-          document.getElementById("news-flash-anchor").setAttribute("target","_blank");
-          document.getElementById("news-flash-anchor").setAttribute("style","text-decoration:none;color:unset;");
         }
       }
     </script>
