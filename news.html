@@ -348,16 +348,18 @@ permalink: /tfjs-aap/news
     <!-- <script type="application/javascript;charset=utf-8" src="https://raw.githubusercontent.com/arifhamed/static/main/others/aap_tfjs/deployment.js"></script> -->
     <!-- <script type="module" src="https://raw.githubusercontent.com/arifhamed/static/main/others/aap_tfjs/deployment.js"></script> -->
     
+    <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
 
     <script>
-      bruh = ""
+      bruh = new Array
+      function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
-      }).done(function(data) {
-        $("body").append(data);
-        bruh = data
+      }).done(function(data) {  
+        // $("body").append(data);
+        bruh = csvToArray(data)
       });
     </script>
   </body>
