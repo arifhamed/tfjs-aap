@@ -355,13 +355,14 @@ permalink: /tfjs-aap/news
     <script>
       bruh = new Array;
       function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
+      function getRandomInt(t,o){return t=Math.ceil(t),o=Math.floor(o),Math.floor(Math.random()*(o-t+1))+t}
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
       }).done(function(data) {  
         // $("body").append(data);
         bruh = csvToArray(data);
-        document.getElementById("row1_headline").textContent = bruh[0]["headline"];
+        document.getElementById("row1_headline").textContent = bruh[getRandomInt(0,100)]["headline"];
       });
     </script>
   </body>
