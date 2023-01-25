@@ -294,12 +294,12 @@ permalink: /tfjs-aap/news
             // var clone = template.cloneNode(true);
             const clone = document.createElement("a");
             clone.setAttribute("class","row");
-            clone.setAttribute("style","text-decoration:none;color:unset;")
+            clone.setAttribute("style","text-decoration:none;color:unset;");
             clone.innerHTML = template;
-            let h2 = clone.querySelectorAll("h2")
+            let h2 = clone.querySelectorAll("h2");
             h2.textContent = data[getRandomInt(0,100)]["headline"];
-            let img = clone.querySelectorAll("img")
-            img.setAttribute("src","https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/${getRandomInt(0,10)}.jpg")
+            let img = clone.querySelectorAll("img");
+            img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/${getRandomInt(0,10)}.jpg";
             mainTable.appendChild(clone);
             // const elRowOne = document.createElement("div");
             // elRowOne.setAttribute("class", "row");
