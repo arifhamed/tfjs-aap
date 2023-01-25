@@ -746,7 +746,7 @@ layout: none
             document.getElementById("news-"+(i+1)+"-headline").textContent = data[url_vals[i]]["headline"];
             document.getElementById("news-"+(i+1)+"-img").src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
             document.getElementById("news-"+(i+1)+"-datetime").textContent = data[url_vals[i]]["datetime"];
-            let anchor = document.getElementById("news-"+i+"-url");
+            let anchor = document.getElementById("news-"+(i+1)+"-url");
             anchor.setAttribute("href", data[url_vals[i]]["url"]);
           }
         }
