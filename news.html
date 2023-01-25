@@ -347,6 +347,16 @@ permalink: /tfjs-aap/news
     </div>
     <!-- <script type="application/javascript;charset=utf-8" src="https://raw.githubusercontent.com/arifhamed/static/main/others/aap_tfjs/deployment.js"></script> -->
     <!-- <script type="module" src="https://raw.githubusercontent.com/arifhamed/static/main/others/aap_tfjs/deployment.js"></script> -->
-    <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script>
+    
+    <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
+
+    <script>
+      $.ajax({
+        url: "https://github.com/arifhamed/straitstimes-api/raw/main/stnews.csv",
+        dataType: "text"
+      }).done(function(data) {
+        $("body").append(data);
+      });
+    </script>
   </body>
 </html>
