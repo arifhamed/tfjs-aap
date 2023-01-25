@@ -21,7 +21,7 @@ console.log("mike test 1 2 3..");
 // document.getElementById("news_headline_1").innerHTML = await httpGet("https://straitstimes.com/sitemap.xml")
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.querySelector('.changelog')) {
+    if (document.querySelector('#news_headline_1')) {
         function file_get_contents(filename) {
             fetch(filename).then((resp) => resp.text()).then(data => {
                 // Optional, replace the H1 heading with nothing,
