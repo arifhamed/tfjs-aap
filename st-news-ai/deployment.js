@@ -54,6 +54,7 @@ async function newsFace() {
     const response = await fetch("http://api.mediastack.com/v1/news?access_key=a94c1c74b0ba73efb9d82b4a66c05a67&countries=sg,my&languages=en");
     const all = await response.json();
     const current = all['data'][0]["title"];
+    console.log(current);
     // const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore");
     // const zeroPad = (num, places) => String(num).padStart(places, '0');
     document.querySelector("#news_headline_1").innerHTML = current
