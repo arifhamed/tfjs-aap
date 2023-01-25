@@ -352,7 +352,7 @@ permalink: /tfjs-aap/news
     <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
 
-    <template>
+    <!-- <template>
       <div id="news-row" class="row news-row"> 
         <div class="col-sm-4 grid-margin">
           <div class="rotate-img">
@@ -378,8 +378,9 @@ permalink: /tfjs-aap/news
           </p>
         </div>
       </div>
-    </template>
+    </template> -->
     <script>
+      const template = '<div class="col-sm-4 grid-margin"> <div class="rotate-img"> <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/magazine/Magzine_7.jpg" alt="banner" class="img-fluid" /> </div> </div> <div class="col-sm-8 grid-margin"> <h2 class="font-weight-600 mb-2 row-headline"> No charges over 2017 battle bus cases </h2> <p class="fs-13 text-muted mb-0"> <span class="mr-2">Photo </span>10 Minutes ago </p> <p class="fs-15"> Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p> </div>';
       bruh = new Array;
       function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
       function getRandomInt(t,o){return t=Math.ceil(t),o=Math.floor(o),Math.floor(Math.random()*(o-t+1))+t}
@@ -396,9 +397,12 @@ permalink: /tfjs-aap/news
         // this part should be where the ai does its thing
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news-column");
-          const template = document.getElementById("news-row");
+          // const template = document.getElementById("news-row");
           for (let i = 0; i < 6 ; i++){
-            var clone = template.cloneNode(true);
+            // var clone = template.cloneNode(true);
+            const clone = document.createElement("div");
+            clone.setAttribute("class","row");
+            clone.innerHTML = template;
             let h2 = clone.querySelectorAll(".row-headline")
             h2.textContent = data[getRandomInt(0,100)]["headline"];
             mainTable.appendChild(clone);
