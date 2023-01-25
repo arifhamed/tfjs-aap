@@ -252,8 +252,8 @@ permalink: /tfjs-aap/news
             img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
             mainTable.appendChild(clone);
           }
-          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters+1]]["headline"]
-          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters+1]]["datetime"]
+          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"]
+          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"]
         }
       }
     </script>

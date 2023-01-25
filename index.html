@@ -36,7 +36,7 @@ layout: none
           <div class="container">
             <div class="row" data-aos="fade-up">
               <div class="col-xl-8 stretch-card grid-margin">
-                <div class="position-relative rotate-img">
+                <div class="position-relative zoom-img">
                   <img
                     src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/banner.jpg"
                     alt="banner"
@@ -738,8 +738,8 @@ layout: none
             anchor.setAttribute("href", data[url_vals[i]]["url"]);
             anchor.setAttribute("style","text-decoration:none;color:unset;");
           }
-          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters+1]]["headline"]
-          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters+1]]["datetime"]
+          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"]
+          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"]
         }
       }
     </script>

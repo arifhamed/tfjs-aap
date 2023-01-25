@@ -10724,6 +10724,24 @@ header .navbar-bottom .navbar-toggler {
   transform: rotate(15deg) scale(1.4);
 }
 
+.zoom-img {
+  overflow: hidden;
+}
+
+.zoom-img img {
+  -webkit-transform:  scale(1);
+  transform:  scale(1);
+  -webkit-transition: 0.8s ease-in-out;
+  transition: 0.8s ease-in-out;
+}
+
+.zoom-img:hover img {
+  -webkit-transform:  scale(1.2);
+  transform: scale(1.2);
+}
+
+
+
 footer {
   color: #ffffff;
 }
