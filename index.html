@@ -64,42 +64,42 @@ layout: none
                   <div class="card-body">
                     <h2>Latest news</h2>
 
-                    <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
+                    <a id="news-1-url" class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
                       <div class="pr-3">
-                        <h5>Default news headline here (like the other 2)</h5>
+                        <h5 id="news-1-headline">Default news headline here (like the other 2)</h5>
                         <div class="fs-12">
-                          <span class="mr-2">Photo </span>10 Minutes ago
+                          <span class="mr-2">Photo </span><span id="news-1-datetime">datetime</span>
                         </div>
                       </div>
                       <div class="rotate-img">
-                        <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/home_1.jpg" alt="thumb" class="img-fluid img-lg" />
+                        <img id="news-1-img" src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/home_1.jpg" alt="thumb" class="img-fluid img-lg" />
                       </div>
-                    </div>
+                    </a>
 
-                    <div class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between">
+                    <a id="news-2-url" class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between">
                       <div class="pr-3">
-                        <h5>Virus Kills Member Of Advising Iran's Supreme</h5>
+                        <h5 id="news-2-headline">Virus Kills Member Of Advising Iran's Supreme</h5>
                         <div class="fs-12">
-                          <span class="mr-2">Photo </span>15 Minutes ago
+                          <span class="mr-2">Photo </span><span id="news-2-datetime">datetime</span>
                         </div>
                       </div>
                       <div class="rotate-img">
-                        <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/home_2.jpg" alt="thumb" class="img-fluid img-lg" />
+                        <img id="news-2-img" src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/home_2.jpg" alt="thumb" class="img-fluid img-lg" />
                       </div>
-                    </div>
+                    </a>
 
                     <!-- that border-bottom-blue should not be a class on this last post -->
-                    <div class="d-flex pt-4 align-items-center justify-content-between">
+                    <a id="news-3-url" class="d-flex pt-4 align-items-center justify-content-between">
                       <div class="pr-3">
-                        <h5>Joe Biden smells like cheese & omeletes</h5>
+                        <h5 id="news-3-headline">Joe Biden smells like cheese & omeletes</h5>
                         <div class="fs-12">
-                          <span class="mr-2">Photo </span>25 Minutes ago
+                          <span class="mr-2">Photo </span><span id="news-3-datetime">datetime</span>
                         </div>
                       </div>
                       <div class="rotate-img">
-                        <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/home_3.jpg" alt="thumb" class="img-fluid img-lg" />
+                        <img id="news-3-img" src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/dashboard/home_3.jpg" alt="thumb" class="img-fluid img-lg" />
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -689,5 +689,68 @@ layout: none
         <!-- partial -->
       </div>
     </div>
+    <script>
+      // const template = `
+      // <div class="col-sm-4 grid-margin">
+      //   <div class="rotate-img"> 
+      //     <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/magazine/Magzine_7.jpg" alt="banner" class="img-fluid" /> 
+      //   </div> 
+      // </div> 
+      // <div class="col-sm-8 grid-margin"> 
+      //   <h2 class="font-weight-600 mb-2 row-headline"> 
+      //     No charges over 2017 battle bus cases 
+      //   </h2> 
+      //   <p class="fs-13 text-muted mb-0"> 
+      //     <span class="mr-2">Photo </span>
+      //     10 Minutes ago 
+      //   </p> 
+      //   <p class="fs-15"> 
+      //     Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+      //   </p> 
+      // </div>`;
+      bruh = new Array;
+      function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
+      function getRandomInt(t,o){return t=Math.ceil(t),o=Math.floor(o),Math.floor(Math.random()*(o-t+1))+t}
+      $.ajax({
+        url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
+        dataType: "text"
+      }).done(function(data) {  
+        // $("body").append(data);
+        // bruh = csvToArray(data);
+        produceNews(csvToArray(data))
+        // document.getElementById("row1_headline").textContent = bruh[getRandomInt(0,100)]["headline"];
+      });
+      function produceNews(data){
+        // this part should be where the ai does its thing
+        if ('content' in document.createElement('template')){
+          const mainTable = document.getElementById("news-column");
+          const total_iters = 3;
+          var img_vals = [];
+          var url_vals = [];
+          while(img_vals.length < total_iters){var r = Math.floor(Math.random()* 10)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
+          while(url_vals.length < total_iters){var r = Math.floor(Math.random()*100)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
+          // const template = document.getElementById("news-row");
+          for (let i = 0; i < total_iters ; i++){
+            // var clone = template.cloneNode(true);
+            // const clone = document.createElement("a");
+            // clone.setAttribute("class","row");
+            // clone.setAttribute("style","text-decoration:none;color:unset;");
+            // clone.setAttribute("href",data[url_vals[i]]["url"])
+            // clone.innerHTML = template;
+            // let h2 = clone.querySelector("h2");
+            // h2.textContent = data[url_vals[i]]["headline"];
+            // let img = clone.querySelector("img");
+            // img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
+            // mainTable.appendChild(clone);
+            
+            document.getElementById("news-"+i+"-headline").textContent = data[url_vals[i]]["headline"];
+            document.getElementById("news-"+i+"-img").src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
+            document.getElementById("news-"+i+"-datetime").textContent = data[url_vals[i]]["datetime"];
+            let anchor = document.getElementById("news-"+i+"-url");
+            anchor.setAttribute("href", data[url_vals[i]]["url"]);
+          }
+        }
+      }
+    </script>
   </body>
 </html>
