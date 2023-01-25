@@ -51,7 +51,8 @@ newsFace();
 // }
 async function newsFace() {
     // const response = await fetch("http://api.mediastack.com/v1/news?access_key=a94c1c74b0ba73efb9d82b4a66c05a67&countries=sg,my&languages=en");
-    const response = await fetch("https://github.com/arifhamed/straitstimes-api/raw/main/straitstimes_sitemap.xml_full-raw.csv");
+    // const response = await fetch("https://github.com/arifhamed/straitstimes-api/raw/main/straitstimes_sitemap.xml_full-raw.csv");
+    const response = await fetch("/tfjs-aap/assets/stnews.csv");
     // const all = await response.json();
     // const current = all['data'][0]["title"];
 
