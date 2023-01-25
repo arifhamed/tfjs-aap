@@ -23,14 +23,14 @@ permalink: /tfjs-aap/news
             <div class="d-lg-flex align-items-center justify-content-between">
               <div class="d-flex align-items-center">
                 <span class="badge badge-dark mr-3">Flash news</span>
-                <p class="mb-0" id="news_headline_1">
+                <p class="mb-0" id="news-flash-headline">
                   Lorem Ipsum has been the industry's standard dummy text ever
                   since the 1500s.
                 </p>
               </div>
               <div class="d-flex">
-                <span class="mr-3 text-danger">Wed, March 4, 2020</span>
-                <span class="text-danger">30°C,London</span>
+                <span class="mr-3 text-danger" id="news-flash-datetime">Wed, March 4, 2020</span>
+                <span class="text-danger">30°C, Singapore</span>
               </div>
             </div>
           </div>
@@ -43,38 +43,13 @@ permalink: /tfjs-aap/news
                   <div class="row">
                     <div class="col-sm-12">
                       <h1 class="font-weight-600 mb-4">
-                        MAGAZINE
+                        NEWS
                       </h1>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-8" id="news-column">
-                      <!-- repeat this div row 6 times -->
-                      <!-- <div class="row"> 
-                        <div class="col-sm-4 grid-margin">
-                          <div class="rotate-img">
-                            <img
-                              src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/magazine/Magzine_7.jpg"
-                              alt="banner"
-                              class="img-fluid"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-sm-8 grid-margin">
-                          <h2 class="font-weight-600 mb-2" id="row_headline">
-                            No charges over 2017 battle bus cases
-                          </h2>
-                          <p class="fs-13 text-muted mb-0">
-                            <span class="mr-2">Photo </span>10 Minutes ago
-                          </p>
-                          <p class="fs-15">
-                            Lorem Ipsum has been the industry's standard dummy
-                            text ever since the 1500s, when an unknown printer
-                            took a galley of type and scrambled it to make a
-                            type specimen book.
-                          </p>
-                        </div>
-                      </div> -->
+                      <!-- template repeated here 6 times -->
                     </div>
                     <!-- <div class="col-lg-4">
                       <h2 class="mb-4 text-primary font-weight-600">
@@ -226,34 +201,6 @@ permalink: /tfjs-aap/news
     
     <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
-
-    <!-- <template>
-      <div id="news-row" class="row news-row"> 
-        <div class="col-sm-4 grid-margin">
-          <div class="rotate-img">
-            <img
-              src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/magazine/Magzine_7.jpg"
-              alt="banner"
-              class="img-fluid"
-            />
-          </div>
-        </div>
-        <div class="col-sm-8 grid-margin">
-          <h2 class="font-weight-600 mb-2 row-headline">
-            No charges over 2017 battle bus cases
-          </h2>
-          <p class="fs-13 text-muted mb-0">
-            <span class="mr-2">Photo </span>10 Minutes ago
-          </p>
-          <p class="fs-15">
-            Lorem Ipsum has been the industry's standard dummy
-            text ever since the 1500s, when an unknown printer
-            took a galley of type and scrambled it to make a
-            type specimen book.
-          </p>
-        </div>
-      </div>
-    </template> -->
     <script>
       const template = `
       <div class="col-sm-4 grid-margin">
@@ -283,7 +230,6 @@ permalink: /tfjs-aap/news
         // $("body").append(data);
         // bruh = csvToArray(data);
         produceNews(csvToArray(data))
-        // document.getElementById("row1_headline").textContent = bruh[getRandomInt(0,100)]["headline"];
       });
       function produceNews(data){
         // this part should be where the ai does its thing
@@ -292,29 +238,22 @@ permalink: /tfjs-aap/news
           const total_iters = 6;
           var img_vals = [];
           var url_vals = [];
-          while(img_vals.length < total_iters){var r = Math.floor(Math.random()* 10)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
-          while(url_vals.length < total_iters){var r = Math.floor(Math.random()*100)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
-          // const template = document.getElementById("news-row");
+          while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()* 10)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
+          while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*100)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
           for (let i = 0; i < total_iters ; i++){
-            // var clone = template.cloneNode(true);
-            const current = data[url_vals[i]]
             const clone = document.createElement("a");
             clone.setAttribute("class","row");
             clone.setAttribute("style","text-decoration:none;color:unset;");
-            clone.setAttribute("href",current["url"])
+            clone.setAttribute("href",data[url_vals[i]]["url"])
             clone.innerHTML = template;
             let h2 = clone.querySelector("h2");
             h2.textContent = data[url_vals[i]]["headline"];
             let img = clone.querySelector("img");
             img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
             mainTable.appendChild(clone);
-            // const elRowOne = document.createElement("div");
-            // elRowOne.setAttribute("class", "row");
-            // const elRowTwoOne = document.createElement("div");
-            // elRowTwoOne.setAttribute("class", "col-sm-4 grid-margin")
-            // const 
-            // document.getElementById("news_column").appendChild()
           }
+          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters+1]]["headline"]
+          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters+1]]["datetime"]
         }
       }
     </script>
