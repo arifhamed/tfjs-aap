@@ -351,11 +351,13 @@ permalink: /tfjs-aap/news
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
 
     <script>
+      bruh = ""
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
       }).done(function(data) {
         $("body").append(data);
+        bruh = data
       });
     </script>
   </body>
