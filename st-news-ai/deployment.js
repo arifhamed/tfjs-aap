@@ -45,23 +45,29 @@ console.log("mike test 1 2 3..");
 //     }
 // });
 
-newsFace();
+// newsFace();
 // function convertTZ(date, tzString) {
 //     return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
 // }
-async function newsFace() {
-    // const response = await fetch("http://api.mediastack.com/v1/news?access_key=a94c1c74b0ba73efb9d82b4a66c05a67&countries=sg,my&languages=en");
-    // const response = await fetch("https://github.com/arifhamed/straitstimes-api/raw/main/straitstimes_sitemap.xml_full-raw.csv");
-    const response = await fetch("https://arifhamed.com/tfjs-aap/assets/stnews.csv");
-    // const all = await response.json();
-    // const current = all['data'][0]["title"];
 
-    console.log(response);
-    // const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore");
-    // const zeroPad = (num, places) => String(num).padStart(places, '0');
-    document.querySelector("#news_headline_1").innerHTML = current
-    // document.getElementById('time').innerHTML = "this website was last updated in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).";
-    // if (document.getElementById('time').innerHTML.includes("NaN")){
-    //     document.getElementById('time').innerHTML = "you could be on mobile right now, yeah i see you, your soul looks delicious";
-    // }
-}
+// function CSVToArray(e,r){r=r||",";for(var n=new RegExp("(\\"+r+'|\\r?\\n|\\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^"\\'+r+"\\r\\n]*))","gi"),g=[[]],l=null;l=n.exec(e);){var p=l[1];p.length&&p!==r&&g.push([]),p=l[2]?l[2].replace(new RegExp('""',"g"),'"'):l[3],g[g.length-1].push(p)}return g}
+// async function newsFace() {
+//     // const response = await fetch("http://api.mediastack.com/v1/news?access_key=a94c1c74b0ba73efb9d82b4a66c05a67&countries=sg,my&languages=en");
+//     // const response = await fetch("https://github.com/arifhamed/straitstimes-api/raw/main/straitstimes_sitemap.xml_full-raw.csv");
+//     const response = await fetch("https://arifhamed.com/tfjs-aap/assets/stnews.csv");
+//     // const all = await response.json();
+//     // const current = all['data'][0]["title"];
+
+//     console.log(response);
+//     // const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore");
+//     // const zeroPad = (num, places) => String(num).padStart(places, '0');
+//     document.querySelector("#news_headline_1").innerHTML = current
+//     // document.getElementById('time').innerHTML = "this website was last updated in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).";
+//     // if (document.getElementById('time').innerHTML.includes("NaN")){
+//     //     document.getElementById('time').innerHTML = "you could be on mobile right now, yeah i see you, your soul looks delicious";
+//     // }
+// }
+
+jQuery.getJSON('https://arifhamed.com/tfjs-aap/assets/stnews.csv', function (csvdata) {
+    console.log(csvdata.csvToArray());
+});
