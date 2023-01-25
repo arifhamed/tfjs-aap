@@ -48,7 +48,7 @@ permalink: /tfjs-aap/news
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-8" id="news_column">
+                    <div class="col-lg-8" id="news-column">
                       <!-- repeat this div row 6 times -->
                       <div class="row"> 
                         <div class="col-sm-4 grid-margin">
@@ -352,8 +352,8 @@ permalink: /tfjs-aap/news
     <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
 
-    <template>
-      <div id="news-row" class="row"> 
+    <template id="news-row">
+      <div class="row"> 
         <div class="col-sm-4 grid-margin">
           <div class="rotate-img">
             <img
@@ -364,7 +364,7 @@ permalink: /tfjs-aap/news
           </div>
         </div>
         <div class="col-sm-8 grid-margin">
-          <h2 class="font-weight-600 mb-2 row_headline">
+          <h2 class="font-weight-600 mb-2 row-headline">
             No charges over 2017 battle bus cases
           </h2>
           <p class="fs-13 text-muted mb-0">
@@ -395,11 +395,11 @@ permalink: /tfjs-aap/news
       function produceNews(data){
         // this part should be where the ai does its thing
         if ('content' in document.createElement('template')){
-          const mainTable = document.getElementById("news_column");
-          const template = document.querySelector("#news_row");
-          for (let i = 0; i < 6 ; i++){ 
-            const clone = template.cloneNode(true);
-            let h2 = clone.querySelectorAll(".row_headline")
+          const mainTable = document.getElementById("news-column");
+          const template = document.querySelector("#news-row");
+          for (let i = 0; i < 6 ; i++){
+            const clone = template.contains.cloneNode(true);
+            let h2 = clone.querySelectorAll(".row-headline")
             h2.textContent = data[getRandomInt(0,100)]["headline"];
             mainTable.appendChild(clone);
             // const elRowOne = document.createElement("div");
