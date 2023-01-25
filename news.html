@@ -353,7 +353,7 @@ permalink: /tfjs-aap/news
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
 
     <template id="news-row">
-      <div class="row"> 
+      <div class="row news-row"> 
         <div class="col-sm-4 grid-margin">
           <div class="rotate-img">
             <img
@@ -396,9 +396,9 @@ permalink: /tfjs-aap/news
         // this part should be where the ai does its thing
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news-column");
-          const template = document.querySelector("#news-row");
+          const template = document.querySelector(".news-row");
           for (let i = 0; i < 6 ; i++){
-            const clone = template.firstChild.cloneNode(true);
+            var clone = template.cloneNode(true);
             let h2 = clone.querySelectorAll(".row-headline")
             h2.textContent = data[getRandomInt(0,100)]["headline"];
             mainTable.appendChild(clone);
