@@ -48,9 +48,9 @@ permalink: /tfjs-aap/news
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-8" id="news_column">
                       <!-- repeat this div row 6 times -->
-                      <div class="row">
+                      <div class="row"> 
                         <div class="col-sm-4 grid-margin">
                           <div class="rotate-img">
                             <img
@@ -61,7 +61,7 @@ permalink: /tfjs-aap/news
                           </div>
                         </div>
                         <div class="col-sm-8 grid-margin">
-                          <h2 class="font-weight-600 mb-2" id="row1_headline">
+                          <h2 class="font-weight-600 mb-2" id="row_headline">
                             No charges over 2017 battle bus cases
                           </h2>
                           <p class="fs-13 text-muted mb-0">
@@ -352,6 +352,33 @@ permalink: /tfjs-aap/news
     <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
 
+    <template id="news_row">
+      <div class="row"> 
+        <div class="col-sm-4 grid-margin">
+          <div class="rotate-img">
+            <img
+              src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/magazine/Magzine_7.jpg"
+              alt="banner"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+        <div class="col-sm-8 grid-margin">
+          <h2 class="font-weight-600 mb-2 row_headline">
+            No charges over 2017 battle bus cases
+          </h2>
+          <p class="fs-13 text-muted mb-0">
+            <span class="mr-2">Photo </span>10 Minutes ago
+          </p>
+          <p class="fs-15">
+            Lorem Ipsum has been the industry's standard dummy
+            text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a
+            type specimen book.
+          </p>
+        </div>
+      </div>
+    </template>
     <script>
       bruh = new Array;
       function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
@@ -361,9 +388,29 @@ permalink: /tfjs-aap/news
         dataType: "text"
       }).done(function(data) {  
         // $("body").append(data);
-        bruh = csvToArray(data);
-        document.getElementById("row1_headline").textContent = bruh[getRandomInt(0,100)]["headline"];
+        // bruh = csvToArray(data);
+        produceNews(csvToArray(data))
+        // document.getElementById("row1_headline").textContent = bruh[getRandomInt(0,100)]["headline"];
       });
+      function produceNews(data){
+        // this part should be where the ai does its thing
+        if ('content' in document.createElement('template')){
+          const mainTable = document.getElementById("news_column");
+          const template = document.querySelector("#news_row");
+          for (let i = 0; i < 6 ; i++){
+            const clone = template.contains.cloneNode(true);
+            let h2 = clone.querySelectorAll(".row_headline")
+            h2.textContent = data[getRandomInt(0,100)]["headline"];
+            mainTable.appendChild(clone);
+            // const elRowOne = document.createElement("div");
+            // elRowOne.setAttribute("class", "row");
+            // const elRowTwoOne = document.createElement("div");
+            // elRowTwoOne.setAttribute("class", "col-sm-4 grid-margin")
+            // const 
+            // document.getElementById("news_column").appendChild()
+          }
+        }
+      }
     </script>
   </body>
 </html>
