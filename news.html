@@ -280,12 +280,17 @@ permalink: /tfjs-aap/news
         // ]));
         // return model.predict(headline)
 
-        // model.embed(headline).then(embeddings => {
-        //   embeddings.print(true /* verbose */);
-        //   return embeddings
-        // }).then(flowOne => {
-        //   model.predict()
-        // })
+        use.load().then(model => {
+          model.embed(headline).then(embeddings => {
+            embeddings.print(true /* verbose */);
+            return embeddings
+          }).then(flowOne => {
+            console.log(model.predict(flowOne))
+          })
+        })
+
+        // use.load({modelUrl: 'https://arifhamed.com/tfjs-aap/st-news-ai/model.json', vocabUrl: 'https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab'})
+        
       }
     </script>
   </body>
