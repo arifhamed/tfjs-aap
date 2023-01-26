@@ -271,6 +271,7 @@ permalink: /tfjs-aap/news
       async function newsModel(url){
         const headline = url.substring(url.lastIndexOf("/")+1,url.length).split("-").join(" ");
         const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+        model.summary();
         debug_model = model;
         // // works but the input cannot liao
         // model.predict(tf.tensor([headline])).then((prediction) => {
@@ -285,9 +286,10 @@ permalink: /tfjs-aap/news
           for (let i=0; i < encoded_headline.length; i++){
             buffer.set(encoded_headline[i],0,i)
           }
-          model.predict(buffer.toTensor()).then((prediction) => {
-            console.log(prediction)
-          })
+          // debug_model.getConfig()["layers"][0]["config"]["batchInputShape"]
+          const prediction = model.predict(buffer.toTensor())
+          console.log(prediction)
+          
         })
 
         // use.load().then(embedder => {
