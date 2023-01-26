@@ -229,14 +229,14 @@ permalink: /tfjs-aap/news
       function getHeadline(n){return n.substring(n.lastIndexOf("/")+1,n.length).split("-").map(capitalize).join(" ")}
       function make_sequences(r){let o=Array();if(r.slice(0,MAX_SEQUENCE_LENGTH).forEach(function(r){r=word_preprocessor(r);r=words_vocab[r];null==r?o.push(words_vocab["<UNK>"]):o.push(r)}),o.length<MAX_SEQUENCE_LENGTH){let r=Array(MAX_SEQUENCE_LENGTH-o.length);r.fill(words_vocab["<UNK>"]),o=o.concat(r)}return o}
       // async function loadModel(url){
-      //   const model = await tf.loadLayersModel(url);
+      //   return await tf.loadLayersModel(url);
       // }
-
-      // (async () => {
-      //   const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
-      // })
+      const model = new Promise;
+      (async () => {
+        const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+      })
       // const model = () => {return axios(users)}
-      const model = await (async () => {return await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json')})
+      
       model.summary();
       
       var debug_model = new Object;
