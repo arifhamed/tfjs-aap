@@ -223,6 +223,8 @@ permalink: /tfjs-aap/news
       bruh = new Array;
       function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
       function getRandomInt(t,o){return t=Math.ceil(t),o=Math.floor(o),Math.floor(Math.random()*(o-t+1))+t}
+      function capitalize(e){return e.charAt(0).toUpperCase()+e.slice(1)}
+      function getHeadline(n){return n.substring(n.lastIndexOf("/")+1,n.length).split("-").map(capitalize).join(" ")}
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
@@ -240,7 +242,9 @@ permalink: /tfjs-aap/news
           var url_vals = [];
           while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()* 10)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
           while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*100)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
+          // loop through the csv until you get 3 that is >=90% confidence that it is housing
           for (let i = 0; i < total_iters ; i++){
+            console.log(newsModel(data[url_vals[i]]));
             const clone = document.createElement("a");
             clone.setAttribute("class","row");
             clone.setAttribute("style","text-decoration:none;color:unset;");
@@ -248,15 +252,20 @@ permalink: /tfjs-aap/news
             clone.setAttribute("target","_blank");
             clone.innerHTML = template;
             let h2 = clone.querySelector("h2");
-            h2.textContent = data[url_vals[i]]["headline"];
+            h2.textContent = getHeadline(data[url_vals[i]]["url"]);
             let img = clone.querySelector("img");
             img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
             mainTable.appendChild(clone);
           }
-          document.getElementById("news-flash-headline").textContent = data[url_vals[total_iters]]["headline"]
-          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"]
+          document.getElementById("news-flash-headline").textContent = getHeadline(data[url_vals[total_iters]]["url"]);
+          document.getElementById("news-flash-datetime").textContent = data[url_vals[total_iters]]["datetime"];
           document.getElementById("news-flash-anchor").setAttribute("href",data[url_vals[total_iters]]["url"]);
         }
+      }
+      async function newsModel(url){
+        const headline = url.substring(url.lastIndexOf("/")+1,url.length).split("-").join(" ");
+        const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+        return model.execute(headline)
       }
     </script>
   </body>
