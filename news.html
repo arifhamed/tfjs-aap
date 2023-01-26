@@ -202,7 +202,7 @@ permalink: /tfjs-aap/news
     <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
     <script>
-      import * as tf from '@tensorflow/tfjs';
+      // import * as tf from '@tensorflow/tfjs';
       const template = `
       <div class="col-sm-4 grid-margin">
         <div class="rotate-img"> 
@@ -229,7 +229,7 @@ permalink: /tfjs-aap/news
       function getHeadline(n){return n.substring(n.lastIndexOf("/")+1,n.length).split("-").map(capitalize).join(" ")}
       function make_sequences(r){let o=Array();if(r.slice(0,MAX_SEQUENCE_LENGTH).forEach(function(r){r=word_preprocessor(r);r=words_vocab[r];null==r?o.push(words_vocab["<UNK>"]):o.push(r)}),o.length<MAX_SEQUENCE_LENGTH){let r=Array(MAX_SEQUENCE_LENGTH-o.length);r.fill(words_vocab["<UNK>"]),o=o.concat(r)}return o}
       
-        $.ajax({
+      $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
       }).done(function(data) {  
