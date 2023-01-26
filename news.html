@@ -296,6 +296,7 @@ permalink: /tfjs-aap/news
         // })
 
         // model.load()
+        var decidingOutput = "";
 
         use.loadTokenizer('https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json').then(tokenizer => {
           // buffer comes with 0 by default, which is a big win for me ngl
@@ -308,13 +309,14 @@ permalink: /tfjs-aap/news
           // const prediction = model.predict(buffer.toTensor())
           // console.log(prediction)
           const prediction = model.predict(buffer.toTensor())
-          if ((prediction.data())[0] < (prediction.data())[1]){
-            return "not housing"
-          } else {
-            return "housing"
-          }
+          // if ((prediction.data())[0] < (prediction.data())[1]){
+          //   return "not housing"
+          // } else {
+          //   return "housing"
+          // }
+          decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "not housing" : "housing";
         })
-
+        return decidingOutput;
         // use.load().then(embedder => {
         //   embedder.embed(headline).then(embeddings => {
         //     // embeddings.print(true /* verbose */);
