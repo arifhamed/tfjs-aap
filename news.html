@@ -229,6 +229,7 @@ permalink: /tfjs-aap/news
       function getHeadline(n){return n.substring(n.lastIndexOf("/")+1,n.length).split("-").map(capitalize).join(" ")}
       function make_sequences(r){let o=Array();if(r.slice(0,MAX_SEQUENCE_LENGTH).forEach(function(r){r=word_preprocessor(r);r=words_vocab[r];null==r?o.push(words_vocab["<UNK>"]):o.push(r)}),o.length<MAX_SEQUENCE_LENGTH){let r=Array(MAX_SEQUENCE_LENGTH-o.length);r.fill(words_vocab["<UNK>"]),o=o.concat(r)}return o}
       
+      var debug_model = new Object;
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
@@ -270,35 +271,42 @@ permalink: /tfjs-aap/news
       async function newsModel(url){
         const headline = url.substring(url.lastIndexOf("/")+1,url.length).split("-").join(" ");
         const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
-        // Promise.all([
-        //   encodeData()
-        // ])
-        // .then(flowOne => {
-
+        debug_model = model;
+        // // works but the input cannot liao
+        // model.predict(tf.tensor([headline])).then((prediction) => {
+        //   console.log(prediction)
         // })
-        // const outputData = tf.tensor2d(comments.map(comment => [
-        //   comment.intent === 'buy' ? 1 : 0,
-        //   comment.intent === 'none' ? 1 : 0,
-        // ]));
-        // return model.predict(headline)
 
-        model.predict(tf.stack(headline)).then((prediction) => {
-          console.log(prediction)
+        // model.load()
+
+        use.loadTokenizer('https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json').then(tokenizer => {
+          const buffer = tf.buffer([1,16]);
+          const encoded_headline = tokenizer.encode(headline);
+          for (let i=0; i < encoded_headline.length; i++){
+            buffer.set(encoded_headline[i],0,i)
+          }
+          model.predict(buffer.toTensor()).then((prediction) => {
+            console.log(prediction)
+          })
         })
 
-        // use.load().then(model => {
-        //   model.embed(headline).then(embeddings => {
+        // use.load().then(embedder => {
+        //   embedder.embed(headline).then(embeddings => {
         //     // embeddings.print(true /* verbose */);
-        //     return embeddings
-        //   }).then(flowOne => {
-        //     console.log("french")
-        //     model.predict(flowOne)
-        //     // model.then(function (res) {
-        //     //   const prediction = res.predict(headline);
-        //     //   console.log("polish");
-        //     //   console.log(prediction)
-        //     // })
+        //     // return embeddings
+        //     model.predict().then((prediction) => {
+        //       console.log(prediction)
+        //     })
         //   })
+        //   // .then(flowOne => {
+        //   //   console.log("french")
+        //   //   model.predict(flowOne)
+        //   //   // model.then(function (res) {
+        //   //   //   const prediction = res.predict(headline);
+        //   //   //   console.log("polish");
+        //   //   //   console.log(prediction)
+        //   //   // })
+        //   // })
         // })
 
         // model.then(function (res) {
