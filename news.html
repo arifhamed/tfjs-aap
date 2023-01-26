@@ -202,6 +202,7 @@ permalink: /tfjs-aap/news
     <!-- working one here! -->
     <!-- <script type="module" src="/tfjs-aap/st-news-ai/deployment.js" crossorigin="anonymous"></script> -->
     <script>
+      import * as tf from '@tensorflow/tfjs';
       const template = `
       <div class="col-sm-4 grid-margin">
         <div class="rotate-img"> 
@@ -220,14 +221,15 @@ permalink: /tfjs-aap/news
           Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
         </p> 
       </div>`;
-      bruh = new Array;
       const MAX_SEQUENCE_LENGTH = 16;
+      // bruh = new Array;
       function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
       function getRandomInt(t,o){return t=Math.ceil(t),o=Math.floor(o),Math.floor(Math.random()*(o-t+1))+t}
       function capitalize(e){return e.charAt(0).toUpperCase()+e.slice(1)}
       function getHeadline(n){return n.substring(n.lastIndexOf("/")+1,n.length).split("-").map(capitalize).join(" ")}
       function make_sequences(r){let o=Array();if(r.slice(0,MAX_SEQUENCE_LENGTH).forEach(function(r){r=word_preprocessor(r);r=words_vocab[r];null==r?o.push(words_vocab["<UNK>"]):o.push(r)}),o.length<MAX_SEQUENCE_LENGTH){let r=Array(MAX_SEQUENCE_LENGTH-o.length);r.fill(words_vocab["<UNK>"]),o=o.concat(r)}return o}
-      $.ajax({
+      
+        $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
       }).done(function(data) {  
@@ -280,17 +282,33 @@ permalink: /tfjs-aap/news
         // ]));
         // return model.predict(headline)
 
-        use.load().then(model => {
-          model.embed(headline).then(embeddings => {
-            embeddings.print(true /* verbose */);
-            return embeddings
-          }).then(flowOne => {
-            console.log(model.predict(flowOne))
-          })
+        model.predict(headline).then((prediction) => {
+          console.log(prediction)
         })
 
-        // use.load({modelUrl: 'https://arifhamed.com/tfjs-aap/st-news-ai/model.json', vocabUrl: 'https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab'})
+        // use.load().then(model => {
+        //   model.embed(headline).then(embeddings => {
+        //     // embeddings.print(true /* verbose */);
+        //     return embeddings
+        //   }).then(flowOne => {
+        //     console.log("french")
+        //     model.predict(flowOne)
+        //     // model.then(function (res) {
+        //     //   const prediction = res.predict(headline);
+        //     //   console.log("polish");
+        //     //   console.log(prediction)
+        //     // })
+        //   })
+        // })
+
+        // model.then(function (res) {
+        //   const prediction = res.predict(headline);
+        //   console.log(prediction);
+        // }, function (err) {
+        //   console.log(err)
+        // })
         
+        // use.load({modelUrl: 'https://arifhamed.com/tfjs-aap/st-news-ai/model.json', vocabUrl: 'https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab'})
       }
     </script>
   </body>
