@@ -235,6 +235,7 @@ permalink: /tfjs-aap/news
       });
       function produceNews(data){
         // this part should be where the ai does its thing
+        // note: remove headline var from the fake api
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news-column");
           const total_iters = 6;
@@ -244,7 +245,7 @@ permalink: /tfjs-aap/news
           while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*100)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
           // loop through the csv until you get 3 that is >=90% confidence that it is housing
           for (let i = 0; i < total_iters ; i++){
-            console.log(newsModel(data[url_vals[i]]));
+            console.log(newsModel(data[url_vals[i]]["url"]));
             const clone = document.createElement("a");
             clone.setAttribute("class","row");
             clone.setAttribute("style","text-decoration:none;color:unset;");
