@@ -268,7 +268,24 @@ permalink: /tfjs-aap/news
       async function newsModel(url){
         const headline = url.substring(url.lastIndexOf("/")+1,url.length).split("-").join(" ");
         const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
-        return model.predict(headline)
+        // Promise.all([
+        //   encodeData()
+        // ])
+        // .then(flowOne => {
+
+        // })
+        // const outputData = tf.tensor2d(comments.map(comment => [
+        //   comment.intent === 'buy' ? 1 : 0,
+        //   comment.intent === 'none' ? 1 : 0,
+        // ]));
+        // return model.predict(headline)
+
+        // model.embed(headline).then(embeddings => {
+        //   embeddings.print(true /* verbose */);
+        //   return embeddings
+        // }).then(flowOne => {
+        //   model.predict()
+        // })
       }
     </script>
   </body>
