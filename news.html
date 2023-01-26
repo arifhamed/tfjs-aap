@@ -288,8 +288,8 @@ permalink: /tfjs-aap/news
           document.getElementById("news-flash-anchor").setAttribute("href",data[url_vals[total_iters]]["url"]);
         }
       }
-      async function newsModel(url, model){
-        const headline = url.substring(url.lastIndexOf("/")+1,url.length).split("-").join(" ");
+      async function newsModel(st_url, model){
+        const headline = st_url.substring(st_url.lastIndexOf("/")+1,st_url.length).split("-").join(" ");
         // // works but the input cannot liao
         // model.predict(tf.tensor([headline])).then((prediction) => {
         //   console.log(prediction)
@@ -307,8 +307,12 @@ permalink: /tfjs-aap/news
           // debug_model.getConfig()["layers"][0]["config"]["batchInputShape"]
           // const prediction = model.predict(buffer.toTensor())
           // console.log(prediction)
-          model.predict(buffer.toTensor())
-          
+          const prediction = model.predict(buffer.toTensor())
+          if ((prediction.data())[0] < (prediction.data())[1]){
+            return "not housing"
+          } else {
+            return "housing"
+          }
         })
 
         // use.load().then(embedder => {
