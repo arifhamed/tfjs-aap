@@ -259,11 +259,11 @@ permalink: /tfjs-aap/news
         // note: remove headline var from the fake api
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news-column");
-          const total_iters = 20;
+          const total_iters = 30;
           const news_retrieval_limit = 100;
           var img_vals = [];
           var url_vals = [];
-          while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()*total_iters)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
+          while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()*total_iters+1)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
           while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*news_retrieval_limit)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
           // loop through the csv until you get 3 that is >=90% confidence that it is housing
           for (let i = 0; i < total_iters ; i++){
