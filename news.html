@@ -270,7 +270,7 @@ permalink: /tfjs-aap/news
           while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*news_retrieval_limit)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
           // loop through the csv until you get 3 that is >=90% confidence that it is housing
           for (let i = 0; i < total_iters ; i++){
-            console.log(newsModel(data[url_vals[i]]["url"], model));
+            console.log(newsModel(data[url_vals[i]]["url"], model).then());
             const clone = document.createElement("a");
             clone.setAttribute("class","row");
             clone.setAttribute("style","text-decoration:none;color:unset;");
