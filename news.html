@@ -228,8 +228,11 @@ permalink: /tfjs-aap/news
       function capitalize(e){return e.charAt(0).toUpperCase()+e.slice(1)}
       function getHeadline(n){return n.substring(n.lastIndexOf("/")+1,n.length).split("-").map(capitalize).join(" ")}
       function make_sequences(r){let o=Array();if(r.slice(0,MAX_SEQUENCE_LENGTH).forEach(function(r){r=word_preprocessor(r);r=words_vocab[r];null==r?o.push(words_vocab["<UNK>"]):o.push(r)}),o.length<MAX_SEQUENCE_LENGTH){let r=Array(MAX_SEQUENCE_LENGTH-o.length);r.fill(words_vocab["<UNK>"]),o=o.concat(r)}return o}
+      const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+      model.summary();
       
       var debug_model = new Object;
+      debug_model = model;
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
@@ -243,7 +246,7 @@ permalink: /tfjs-aap/news
         // note: remove headline var from the fake api
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news-column");
-          const total_iters = 6;
+          const total_iters = 30;
           var img_vals = [];
           var url_vals = [];
           while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()* 10)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
@@ -270,9 +273,6 @@ permalink: /tfjs-aap/news
       }
       async function newsModel(url){
         const headline = url.substring(url.lastIndexOf("/")+1,url.length).split("-").join(" ");
-        const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
-        model.summary();
-        debug_model = model;
         // // works but the input cannot liao
         // model.predict(tf.tensor([headline])).then((prediction) => {
         //   console.log(prediction)
