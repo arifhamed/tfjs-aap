@@ -231,7 +231,9 @@ permalink: /tfjs-aap/news
       // async function loadModel(url){
       //   const model = await tf.loadLayersModel(url);
       // }
-      const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+      (async () => {
+        const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+      })
       model.summary();
       
       var debug_model = new Object;
@@ -284,14 +286,16 @@ permalink: /tfjs-aap/news
         // model.load()
 
         use.loadTokenizer('https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json').then(tokenizer => {
+          // buffer comes with 0 by default, which is a big win for me ngl
           const buffer = tf.buffer([1,16]);
           const encoded_headline = tokenizer.encode(headline);
           for (let i=0; i < encoded_headline.length; i++){
             buffer.set(encoded_headline[i],0,i)
           }
           // debug_model.getConfig()["layers"][0]["config"]["batchInputShape"]
-          const prediction = model.predict(buffer.toTensor())
-          console.log(prediction)
+          // const prediction = model.predict(buffer.toTensor())
+          // console.log(prediction)
+          model.predict(buffer.toTensor())
           
         })
 
