@@ -282,7 +282,7 @@ permalink: /tfjs-aap/news
         // ]));
         // return model.predict(headline)
 
-        model.predict(headline).then((prediction) => {
+        model.predict(tf.stack(headline)).then((prediction) => {
           console.log(prediction)
         })
 
