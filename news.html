@@ -231,9 +231,11 @@ permalink: /tfjs-aap/news
       // async function loadModel(url){
       //   const model = await tf.loadLayersModel(url);
       // }
-      (async () => {
-        const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
-      })
+
+      // (async () => {
+      //   const model = await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json');
+      // })
+      const model = (async () => {return await tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json')})
       model.summary();
       
       var debug_model = new Object;
