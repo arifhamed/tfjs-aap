@@ -260,10 +260,11 @@ permalink: /tfjs-aap/news
         if ('content' in document.createElement('template')){
           const mainTable = document.getElementById("news-column");
           const total_iters = 30;
+          const news_retrieval_limit = 100;
           var img_vals = [];
           var url_vals = [];
-          while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()* 10)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
-          while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*100)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
+          while(img_vals.length < total_iters+1){var r = Math.floor(Math.random()*total_iters)+1;if(img_vals.indexOf(r)===-1){img_vals.push(r)}}
+          while(url_vals.length < total_iters+1){var r = Math.floor(Math.random()*news_retrieval_limit)+1;if(url_vals.indexOf(r)===-1){url_vals.push(r)}}
           // loop through the csv until you get 3 that is >=90% confidence that it is housing
           for (let i = 0; i < total_iters ; i++){
             console.log(newsModel(data[url_vals[i]]["url"]));
@@ -276,7 +277,7 @@ permalink: /tfjs-aap/news
             let h2 = clone.querySelector("h2");
             h2.textContent = getHeadline(data[url_vals[i]]["url"]);
             let img = clone.querySelector("img");
-            img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpg";
+            img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpeg";
             mainTable.appendChild(clone);
           }
           document.getElementById("news-flash-headline").textContent = getHeadline(data[url_vals[total_iters]]["url"]);
