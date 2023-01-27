@@ -259,7 +259,8 @@ permalink: /tfjs-aap/news
         // tentative new code below until end of ajax
         tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json').then(model => {
           // pls find a way to use your own bpe.vocab to encode
-          use.loadTokenizer('https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json').then(tokenizer => {
+          // https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json
+          use.loadTokenizer('https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab').then(tokenizer => {
             const data = csvToArray(csvData);
             const mainTable = document.getElementById("news-column");
             const total_iters = 10;
