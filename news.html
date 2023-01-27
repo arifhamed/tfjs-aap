@@ -260,7 +260,7 @@ permalink: /tfjs-aap/news
         tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json').then(model => {
           // pls find a way to use your own bpe.vocab to encode
           // https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json
-          use.load({modelUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpe.model", vocabUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab"}).then(tokenizer => {
+          use.load({modelUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpe.model", vocabUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpevocab.json"}).then(tokenizer => {
             const data = csvToArray(csvData);
             const mainTable = document.getElementById("news-column");
             const total_iters = 10;
