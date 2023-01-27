@@ -310,13 +310,15 @@ permalink: /tfjs-aap/news
           // debug_model.getConfig()["layers"][0]["config"]["batchInputShape"]
           // const prediction = model.predict(buffer.toTensor())
           // console.log(prediction)
-          const prediction = model.predict(buffer.toTensor())
+          const prediction = model.predict(buffer.toTensor());
           // if ((prediction.data())[0] < (prediction.data())[1]){
           //   return "not housing"
           // } else {
           //   return "housing"
           // }
           decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "not housing" : "housing";
+          console.log("french");
+          console.log(decidingOutput);
         })
         return decidingOutput;
         // use.load().then(embedder => {
