@@ -36,7 +36,7 @@ $.ajax({
 }).done(function(csvData) {  
   tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json').then(model => {
     // use.load({vocabUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpevocab.json"}).then(tokenizer => {
-      requirejs(['https://arifhamed.com/static/js/sentencepiece.js'], function (SentencePiece) {
+      requirejs(['package/sentencepiece'], function (SentencePiece) {
         const data = csvToArray(csvData);
         const mainTable = document.getElementById("news-column");
         const total_iters = 10;
