@@ -34,51 +34,44 @@ $.ajax({
   url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
   dataType: "text"
 }).done(function(csvData) {  
-  // $("body").append(data);
-  // bruh = csvToArray(data);
-  // produceNews(csvToArray(csvData))
-
-  // tentative new code below until end of ajax
   tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json').then(model => {
-    // pls find a way to use your own bpe.vocab to encode
-    // https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json
-    // modelUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpe.model",
-
     // use.load({vocabUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpevocab.json"}).then(tokenizer => {
-      const data = csvToArray(csvData);
-      const mainTable = document.getElementById("news-column");
-      const total_iters = 10;
-      var news_retrieval_limit = 0; // by right should be 100
-      // var img_vals = [];
-      // var url_vals = [];
-      for (let i=0; i < total_iters;){
-        news_retrieval_limit++;
-        const buffer = tf.buffer([1,16]);
-        const rowData = data[news_retrieval_limit];
-        // const stp = sentencePieceProcessor()
-        const stp = new window.SentencePiece("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.json")
-        // stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
-        const encoded_headline = stp.encode(getHeadline(rowData["url"]));
-        console.log(encoded_headline);
-        for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
-        const prediction = model.predict(buffer.toTensor());
-        decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
-        console.log(decidingOutput);
-        if ((prediction.data())[0] < (prediction.data())[1]){
-          i++;
-          const clone = document.createElement("a");
-          clone.setAttribute("class","row");
-          clone.setAttribute("style","text-decoration:none;color:unset;");
-          clone.setAttribute("href",rowData["url"])
-          clone.setAttribute("target","_blank");
-          clone.innerHTML = template;
-          let h2 = clone.querySelector("h2");
-          h2.textContent = getHeadline(rowData["url"]);
-          let img = clone.querySelector("img");
-          img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+getRandomInt(0,total_iters*2)+".jpeg";
-          mainTable.appendChild(clone);
-        } 
-      }
+      requirejs(['https://arifhamed.com/static/js/sentencepiece.js'], function (SentencePiece) {
+        const data = csvToArray(csvData);
+        const mainTable = document.getElementById("news-column");
+        const total_iters = 10;
+        var news_retrieval_limit = 0; // by right should be 100
+        const stp = new window.SentencePiece("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.json");
+        for (let i=0; i < total_iters;){
+          news_retrieval_limit++;
+          const buffer = tf.buffer([1,16]);
+          const rowData = data[news_retrieval_limit];
+          // const stp = sentencePieceProcessor()
+          
+          // stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
+          const encoded_headline = stp.encode(getHeadline(rowData["url"]));
+          console.log(encoded_headline);
+          for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
+          const prediction = model.predict(buffer.toTensor());
+          decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
+          console.log(decidingOutput);
+          if ((prediction.data())[0] < (prediction.data())[1]){
+            i++;
+            const clone = document.createElement("a");
+            clone.setAttribute("class","row");
+            clone.setAttribute("style","text-decoration:none;color:unset;");
+            clone.setAttribute("href",rowData["url"])
+            clone.setAttribute("target","_blank");
+            clone.innerHTML = template;
+            let h2 = clone.querySelector("h2");
+            h2.textContent = getHeadline(rowData["url"]);
+            let img = clone.querySelector("img");
+            img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+getRandomInt(0,total_iters*2)+".jpeg";
+            mainTable.appendChild(clone);
+          } 
+        }
+      })
+      
     // })
   })
   
