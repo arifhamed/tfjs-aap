@@ -273,7 +273,9 @@ permalink: /tfjs-aap/news
               news_retrieval_limit++;
               const buffer = tf.buffer([1,16]);
               const rowData = data[news_retrieval_limit];
-              const encoded_headline = tokenizer.encode(getHeadline(rowData["url"]));
+              const stp = sentencePieceProcessor()
+              stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
+              const encoded_headline = stp.encodeIds(getHeadline(rowData["url"]));
               for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
               const prediction = model.predict(buffer.toTensor());
               decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
