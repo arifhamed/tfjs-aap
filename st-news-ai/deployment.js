@@ -1,6 +1,7 @@
-// import * as tf from '@tensorflow/tfjs';
 import sentencePieceProcessor from 'https://cdn.jsdelivr.net/npm/@weblab-notebook/sentencepiece';
+// import * as tf from '@tensorflow/tfjs';
 console.log("mike test 1, 2, 3...");
+
 const template = `
 <div class="col-sm-4 grid-margin">
   <div class="rotate-img"> 
