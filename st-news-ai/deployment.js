@@ -1,104 +1,79 @@
-"use strict";
+// import * as tf from '@tensorflow/tfjs';
+import sentencePieceProcessor from 'https://cdn.jsdelivr.net/npm/@weblab-notebook/sentencepiece';
+console.log("mike test 1, 2, 3...");
+const template = `
+<div class="col-sm-4 grid-margin">
+  <div class="rotate-img"> 
+    <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/loading.gif" alt="banner" class="img-fluid" /> 
+  </div> 
+</div> 
+<div class="col-sm-8 grid-margin"> 
+  <h2 class="font-weight-600 mb-2 row-headline"> 
+    article headline loading.. 
+  </h2> 
+  <p class="fs-13 text-muted mb-0"> 
+    <span class="mr-2">Photo </span>
+    10 Minutes ago 
+  </p> 
+  <p class="fs-15"> 
+    article details here
+  </p> 
+</div>`;
+const MAX_SEQUENCE_LENGTH = 16;
+// bruh = new Array;
+function csvToArray(n,i=","){const r=n.slice(0,n.indexOf("\n")).split(i),t=n.slice(n.indexOf("\n")+1).split("\n");return t.map(function(n){var t=n.split(i);return r.reduce(function(n,i,r){return n[i]=t[r],n},{})})};
+function getRandomInt(t,o){return t=Math.ceil(t),o=Math.floor(o),Math.floor(Math.random()*(o-t+1))+t}
+function capitalize(e){return e.charAt(0).toUpperCase()+e.slice(1)}
+function getHeadline(url){return url.substring(url.lastIndexOf("/")+1,url.length).split("-").map(capitalize).join(" ")}
+function make_sequences(r){let o=Array();if(r.slice(0,MAX_SEQUENCE_LENGTH).forEach(function(r){r=word_preprocessor(r);r=words_vocab[r];null==r?o.push(words_vocab["<UNK>"]):o.push(r)}),o.length<MAX_SEQUENCE_LENGTH){let r=Array(MAX_SEQUENCE_LENGTH-o.length);r.fill(words_vocab["<UNK>"]),o=o.concat(r)}return o}
+$.ajax({
+  url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
+  dataType: "text"
+}).done(function(csvData) {  
+  // $("body").append(data);
+  // bruh = csvToArray(data);
+  // produceNews(csvToArray(csvData))
 
-console.log("mike test 1 2 3..");
-// function httpGet(theUrl)
-// {
-//     if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-//         xmlhttp=new XMLHttpRequest();
-//     } else {// code for IE6, IE5
-//         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-//     }
-//     // xmlhttp=new XMLHttpRequest();
-//     xmlhttp.onreadystatechange=function(){
-//         if (xmlhttp.readyState==4 && xmlhttp.status==200){
-//             document.getElementById("news_headline_1").innerHTML = xmlhttp.responseText;
-//         }
-//     }
-//     xmlhttp.open("GET", theUrl, false);
-//     xmlhttp.send();
-// }
-// httpGet("https://straitstimes.com/sitemap.xml")
-// document.getElementById("news_headline_1").innerHTML = await httpGet("https://straitstimes.com/sitemap.xml")
+  // tentative new code below until end of ajax
+  tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json').then(model => {
+    // pls find a way to use your own bpe.vocab to encode
+    // https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json
+    // modelUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpe.model",
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     if (document.querySelector('#news_headline_1')) {
-//         function file_get_contents(filename) {
-//             fetch(filename).then((resp) => resp.text()).then(data => {
-//                 // Optional, replace the H1 heading with nothing,
-//                 // as I do not need it on my static website
-//                 // data = data.replace(/<h1>(.*?)<\/h1>/ig, "");
-
-//                 // Initialize the document parser
-//                 const parser = new DOMParser();
-//                 let doc = parser.parseFromString(data, 'text/html');
-
-//                 // Get the <body> element content
-//                 let body = doc.querySelector('body').innerHTML;
-
-//                 // Replace my empty element with the retrieved content
-//                 document.querySelector('#news_headline_1').innerHTML = body;
-//             });
-//         }
-
-//         // Call the function and point it to my GitHub Pages page
-//         file_get_contents('https://www.straitstimes.com/sitemap.xml?page=36');
-//     }
-// });
-
-// newsFace();
-// function convertTZ(date, tzString) {
-//     return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
-// }
-
-// function CSVToArray(e,r){r=r||",";for(var n=new RegExp("(\\"+r+'|\\r?\\n|\\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^"\\'+r+"\\r\\n]*))","gi"),g=[[]],l=null;l=n.exec(e);){var p=l[1];p.length&&p!==r&&g.push([]),p=l[2]?l[2].replace(new RegExp('""',"g"),'"'):l[3],g[g.length-1].push(p)}return g}
-// async function newsFace() {
-//     // const response = await fetch("http://api.mediastack.com/v1/news?access_key=a94c1c74b0ba73efb9d82b4a66c05a67&countries=sg,my&languages=en");
-//     // const response = await fetch("https://github.com/arifhamed/straitstimes-api/raw/main/straitstimes_sitemap.xml_full-raw.csv");
-//     const response = await fetch("https://arifhamed.com/tfjs-aap/assets/stnews.csv");
-//     // const all = await response.json();
-//     // const current = all['data'][0]["title"];
-
-//     console.log(response);
-//     // const bruh = convertTZ(current.substring(0,4)+"/"+current.substring(5,7)+"/"+current.substring(8,10)+" "+current.substring(11,14)+":"+current.substring(14,17)+":"+current.substring(17,19)+" +0000", "Asia/Singapore");
-//     // const zeroPad = (num, places) => String(num).padStart(places, '0');
-//     document.querySelector("#news_headline_1").innerHTML = current
-//     // document.getElementById('time').innerHTML = "this website was last updated in "+bruh.getDate()+" "+["January","February","March","April","May","June","July","August","September","October","November","December"][bruh.getMonth()]+" "+bruh.getFullYear()+", "+zeroPad(parseInt(bruh.getHours()),2)+":"+zeroPad(parseInt(bruh.getMinutes()),2)+":"+zeroPad(parseInt(bruh.getSeconds()),2)+" (GMT+8, Singapore Time).";
-//     // if (document.getElementById('time').innerHTML.includes("NaN")){
-//     //     document.getElementById('time').innerHTML = "you could be on mobile right now, yeah i see you, your soul looks delicious";
-//     // }
-// }
-
-// jQuery.getJSON('https://arifhamed.com/tfjs-aap/assets/stnews.csv', function (csvdata) {
-//     console.log(csvdata.csvToArray());
-// });
-
-var createCORSRequest = function(method, url) {
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-        // Most browsers.
-        xhr.open(method, url, true);
-    } else if (typeof XDomainRequest != "undefined") {
-        // IE8 & IE9
-        xhr = new XDomainRequest();
-        xhr.open(method, url);
-    } else {
-        // CORS not supported.
-        xhr = null;
-    }
-    return xhr;
-};
-
-var url = 'https://arifhamed.com/tfjs-aap/assets/stnews.csv';
-var method = 'GET';
-var xhr = createCORSRequest(method, url);
-
-xhr.onload = function() {
-    // Success code goes here.
-    
-};
-
-xhr.onerror = function() {
-    // Error code goes here.
-};
-
-xhr.send();
+    // use.load({vocabUrl: "https://arifhamed.com/tfjs-aap/st-news-ai/bpevocab.json"}).then(tokenizer => {
+      const data = csvToArray(csvData);
+      const mainTable = document.getElementById("news-column");
+      const total_iters = 10;
+      var news_retrieval_limit = 0; // by right should be 100
+      // var img_vals = [];
+      // var url_vals = [];
+      for (let i=0; i < total_iters;){
+        news_retrieval_limit++;
+        const buffer = tf.buffer([1,16]);
+        const rowData = data[news_retrieval_limit];
+        const stp = sentencePieceProcessor()
+        stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
+        const encoded_headline = stp.encodeIds(getHeadline(rowData["url"]));
+        for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
+        const prediction = model.predict(buffer.toTensor());
+        decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
+        console.log(decidingOutput);
+        if ((prediction.data())[0] < (prediction.data())[1]){
+          i++;
+          const clone = document.createElement("a");
+          clone.setAttribute("class","row");
+          clone.setAttribute("style","text-decoration:none;color:unset;");
+          clone.setAttribute("href",rowData["url"])
+          clone.setAttribute("target","_blank");
+          clone.innerHTML = template;
+          let h2 = clone.querySelector("h2");
+          h2.textContent = getHeadline(rowData["url"]);
+          let img = clone.querySelector("img");
+          img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+getRandomInt(0,total_iters*2)+".jpeg";
+          mainTable.appendChild(clone);
+        } 
+      }
+    // })
+  })
+  
+});
