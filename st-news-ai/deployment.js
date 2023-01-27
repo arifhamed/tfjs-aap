@@ -1,4 +1,7 @@
-import sentencePieceProcessor from 'https://cdn.jsdelivr.net/npm/@weblab-notebook/sentencepiece';
+// import sentencePieceProcessor from 'https://cdn.jsdelivr.net/npm/@weblab-notebook/sentencepiece';
+
+// const { sentencePieceProcessor } = require("@weblab-notebook/sentencepiece");
+
 // import * as tf from '@tensorflow/tfjs';
 console.log("mike test 1, 2, 3...");
 
@@ -52,9 +55,11 @@ $.ajax({
         news_retrieval_limit++;
         const buffer = tf.buffer([1,16]);
         const rowData = data[news_retrieval_limit];
-        const stp = sentencePieceProcessor()
-        stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
-        const encoded_headline = stp.encodeIds(getHeadline(rowData["url"]));
+        // const stp = sentencePieceProcessor()
+        const stp = new sentencePieceProcessor("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.json")
+        // stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
+        const encoded_headline = stp.encode(getHeadline(rowData["url"]));
+        console.log(encoded_headline);
         for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
         const prediction = model.predict(buffer.toTensor());
         decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
