@@ -263,29 +263,32 @@ permalink: /tfjs-aap/news
             const data = csvToArray(csvData);
             const mainTable = document.getElementById("news-column");
             const total_iters = 10;
-            const news_retrieval_limit = 100;
+            var news_retrieval_limit = 0; // by right should be 100
             // var img_vals = [];
             // var url_vals = [];
-            for (let i=0; i < total_iters; i++){
+            for (let i=0; i < total_iters;){
+              news_retrieval_limit++;
               const buffer = tf.buffer([1,16]);
-              const rowData = data[getRandomInt(0,news_retrieval_limit-1)]
+              const rowData = data[news_retrieval_limit];
               const encoded_headline = tokenizer.encode(getHeadline(rowData["url"]));
               for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
               const prediction = model.predict(buffer.toTensor());
               decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
               console.log(decidingOutput);
-              
-              const clone = document.createElement("a");
-              clone.setAttribute("class","row");
-              clone.setAttribute("style","text-decoration:none;color:unset;");
-              clone.setAttribute("href",rowData["url"])
-              clone.setAttribute("target","_blank");
-              clone.innerHTML = template;
-              let h2 = clone.querySelector("h2");
-              h2.textContent = getHeadline(rowData["url"]);
-              let img = clone.querySelector("img");
-              img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+getRandomInt(0,total_iters*2)+".jpeg";
-              mainTable.appendChild(clone);
+              if ((prediction.data())[0] < (prediction.data())[1]){
+                i++;
+                const clone = document.createElement("a");
+                clone.setAttribute("class","row");
+                clone.setAttribute("style","text-decoration:none;color:unset;");
+                clone.setAttribute("href",rowData["url"])
+                clone.setAttribute("target","_blank");
+                clone.innerHTML = template;
+                let h2 = clone.querySelector("h2");
+                h2.textContent = getHeadline(rowData["url"]);
+                let img = clone.querySelector("img");
+                img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+getRandomInt(0,total_iters*2)+".jpeg";
+                mainTable.appendChild(clone);
+              } 
             }
 
             // const buffer = tf.buffer([1,16]);
