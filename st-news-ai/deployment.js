@@ -56,7 +56,7 @@ $.ajax({
         const buffer = tf.buffer([1,16]);
         const rowData = data[news_retrieval_limit];
         // const stp = sentencePieceProcessor()
-        const stp = new SentencePiece("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.json")
+        const stp = new window.SentencePiece("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.json")
         // stp.loadVocabulary("https://arifhamed.com/tfjs-aap/st-news-ai/bpe.vocab")
         const encoded_headline = stp.encode(getHeadline(rowData["url"]));
         console.log(encoded_headline);
