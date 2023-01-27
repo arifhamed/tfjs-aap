@@ -206,19 +206,19 @@ permalink: /tfjs-aap/news
       const template = `
       <div class="col-sm-4 grid-margin">
         <div class="rotate-img"> 
-          <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/magazine/Magzine_7.jpg" alt="banner" class="img-fluid" /> 
+          <img src="https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/assets/images/loading.gif" alt="banner" class="img-fluid" /> 
         </div> 
       </div> 
       <div class="col-sm-8 grid-margin"> 
         <h2 class="font-weight-600 mb-2 row-headline"> 
-          No charges over 2017 battle bus cases 
+          article headline loading.. 
         </h2> 
         <p class="fs-13 text-muted mb-0"> 
           <span class="mr-2">Photo </span>
           10 Minutes ago 
         </p> 
         <p class="fs-15"> 
-          Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+          article details here
         </p> 
       </div>`;
       const MAX_SEQUENCE_LENGTH = 16;
@@ -251,10 +251,52 @@ permalink: /tfjs-aap/news
       $.ajax({
         url: "https://arifhamed.com/tfjs-aap/assets/stnews.csv",
         dataType: "text"
-      }).done(function(data) {  
+      }).done(function(csvData) {  
         // $("body").append(data);
         // bruh = csvToArray(data);
-        produceNews(csvToArray(data))
+        // produceNews(csvToArray(csvData))
+
+        // tentative new code below until end of ajax
+        tf.loadLayersModel('https://arifhamed.com/tfjs-aap/st-news-ai/model.json').then(model => {
+          // pls find a way to use your own bpe.vocab to encode
+          use.loadTokenizer('https://storage.googleapis.com/learnjs-data/bert_vocab/vocab.json').then(tokenizer => {
+            const data = csvToArray(csvData);
+            const mainTable = document.getElementById("news-column");
+            const total_iters = 10;
+            const news_retrieval_limit = 100;
+            // var img_vals = [];
+            // var url_vals = [];
+            for (let i=0; i < total_iters; i++){
+              const buffer = tf.buffer([1,16]);
+              const encoded_headline = tokenizer.encode(getHeadline(data[url_vals[i]]["url"]));
+              for (let i=0; i < encoded_headline.length; i++){buffer.set(encoded_headline[i],0,i)};
+              const prediction = model.predict(buffer.toTensor());
+              decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
+              console.log(decidingOutput);
+
+              const clone = document.createElement("a");
+              clone.setAttribute("class","row");
+              clone.setAttribute("style","text-decoration:none;color:unset;");
+              clone.setAttribute("href",data[url_vals[i]]["url"])
+              clone.setAttribute("target","_blank");
+              clone.innerHTML = template;
+              let h2 = clone.querySelector("h2");
+              h2.textContent = getHeadline(data[url_vals[i]]["url"]);
+              let img = clone.querySelector("img");
+              img.src = "https://raw.githubusercontent.com/arifhamed/static/main/projects/aap_tfjs/st-news-ai/"+img_vals[i]+".jpeg";
+              mainTable.appendChild(clone);
+            }
+
+            // const buffer = tf.buffer([1,16]);
+            // const encoded_headline = tokenizer.encode(headline);
+            // for (let i=0; i < encoded_headline.length; i++){
+            //   buffer.set(encoded_headline[i],0,i)
+            // }
+            // const prediction = model.predict(buffer.toTensor());
+            // decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
+            
+          })
+        })
       });
       async function produceNews(data){
         // this part should be where the ai does its thing
@@ -307,16 +349,8 @@ permalink: /tfjs-aap/news
           for (let i=0; i < encoded_headline.length; i++){
             buffer.set(encoded_headline[i],0,i)
           }
-          // debug_model.getConfig()["layers"][0]["config"]["batchInputShape"]
-          // const prediction = model.predict(buffer.toTensor())
-          // console.log(prediction)
           const prediction = model.predict(buffer.toTensor());
-          // if ((prediction.data())[0] < (prediction.data())[1]){
-          //   return "not housing"
-          // } else {
-          //   return "housing"
-          // }
-          decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "not housing" : "housing";
+          decidingOutput = ((prediction.data())[0] < (prediction.data())[1]) ? "housing" : "not housing";
           console.log("french");
           console.log(decidingOutput);
         })
